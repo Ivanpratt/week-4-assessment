@@ -5,9 +5,7 @@
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body class="container">
-    <button id="complimentButton">Get a compliment</button>
-    <br><br>
-    <button id="insultButton">Get an insult</button>
+    <button id="complimentButton">Get a compliment</button><button id="insultButton">Get an insult</button><button id="fortuneButton">Get your fortune</button>
     <br>
     <br>
     <form id="form1">
@@ -44,7 +42,14 @@
             });
       };
 
-      
+      document.getElementById("fortuneButton").onclick = function () {
+        axios.get("http://localhost:4000/api/fortune/")
+            .then(function (response) {
+              const data = response.data;
+              alert(data);
+            });
+      };
+
         let x = 0
       document.getElementById("input1").onclick = function () {
         const form1 = document.getElementById("form1.1")

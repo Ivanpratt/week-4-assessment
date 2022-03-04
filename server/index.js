@@ -36,6 +36,22 @@ app.get("/api/insult", (req, res) => {
   
 });
 
+app.get("/api/fortune", (req, res) => {
+  const fortunes = ["Now is the time to try something new.",
+					 "You will travel to many exotic places in your lifetime.",
+					 "You learn from your mistakes... You will learn a lot today.",
+           "You will conquer obstacles to achieve success.",
+           "You must try, or hate yourself for not trying.",
+  ];
+
+  // choose random compliment
+  let randomIndex = Math.floor(Math.random() * fortunes.length);
+  let randomfortune = fortunes[randomIndex];
+
+  res.status(200).send(randomfortune);
+  
+});
+
 app.post("/api/greatest", (req, res) => {
   const returnValue = {
     returnValue: `It looks like you think ${req.body.value1} is the Greatest.`
