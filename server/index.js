@@ -22,4 +22,39 @@ app.get("/api/compliment", (req, res) => {
   
 });
 
+app.get("/api/insult", (req, res) => {
+  const insults = ["Gee, you're a soggy cookie",
+					 "Cool t-shirt stain, bro!",
+					 "Your Javascript skills are sub-par",
+  ];
+
+  // choose random compliment
+  let randomIndex = Math.floor(Math.random() * insults.length);
+  let randominsult = insults[randomIndex];
+
+  res.status(200).send(randominsult);
+  
+});
+
+app.post("/api/greatest", (req, res) => {
+  const returnValue = {
+    returnValue: `It looks like you think ${req.body.value1} is the Greatest.`
+  }
+  res.status(200).send(returnValue);
+  
+});
+
+app.put("/api/greatest/1", (req, res) => {
+  const returnValue = {
+    returnValue: `It looks like you now think ${req.body.value1} is the Greatest.`
+  }
+  res.status(200).send(returnValue);
+  
+});
+
+app.delete("/api/greatest/1", (req, res) => {
+  let response = {}
+  res.status(200).send(response);
+});
+
 app.listen(4000, () => console.log("Server running on 4000"));

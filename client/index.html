@@ -1,18 +1,88 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Back End Assessment</title>
+    <title>BackFront EndStart Assessment</title>
+    <link rel="stylesheet" href="./styles.css">
   </head>
   <body class="container">
     <button id="complimentButton">Get a compliment</button>
-
+    <br><br>
+    <button id="insultButton">Get an insult</button>
+    <br>
+    <br>
+    <form id="form1">
+      <label for="input1">Who do you want to say is the Greatest?</label>
+      <input id="form1.1" type="text" value="Ivan">
+      <input id="input1" type="button" value="Submit">
+    </form>
+    <br>
+    <form id="form2">
+      <label for="input2">Changed your mind? Who now is the Greatest?</label>
+      <input id="form22" type="text">
+      <input id="input2" type="button" value="Submit">
+    </form>
+    <br>
+    <button id="deleteButton">Delete the Greatest PTag :(</button>
+    <br>
+    <br>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
+      
       document.getElementById("complimentButton").onclick = function () {
         axios.get("http://localhost:4000/api/compliment/")
             .then(function (response) {
               const data = response.data;
               alert(data);
+            });
+      };
+
+      document.getElementById("insultButton").onclick = function () {
+        axios.get("http://localhost:4000/api/insult/")
+            .then(function (response) {
+              const data = response.data;
+              alert(data);
+            });
+      };
+
+      
+        let x = 0
+      document.getElementById("input1").onclick = function () {
+        const form1 = document.getElementById("form1.1")
+      let body = {
+        value1: form1.value
+      }
+        axios.post("http://localhost:4000/api/greatest/", body)
+            .then(function (response) {
+              const data = response.data.returnValue;
+              while (x<1) {
+              const ptag = document.createElement("p");
+              ptag.setAttribute("id", "greatestPTag")
+              ptag.innerText = `${data}`;
+              document.body.appendChild(ptag)
+              x++
+              }
+            });
+      };
+
+      document.getElementById("input2").onclick = function () {
+        const form22 = document.getElementById("form22")
+      let body = {
+        value1: form22.value
+      }
+        axios.put("http://localhost:4000/api/greatest/1", body)
+            .then(function (response) {
+              const data = response.data.returnValue;
+              //alert(data);
+              let greatestPTag1 = document.getElementById("greatestPTag")
+              greatestPTag1.textContent = data
+            });
+      };
+
+      document.getElementById("deleteButton").onclick = function () {
+        axios.delete("http://localhost:4000/api/greatest/1")
+            .then(function (response) {
+              document.getElementById("greatestPTag").remove()
+              x--
             });
       };
     </script>
